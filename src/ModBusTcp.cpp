@@ -9,6 +9,10 @@ bool ModBusTcp<uint16_t>::ReadInputs()
 		 syslog(LOG_INFO, "ModBusTcp read input holdings: %s",
 				 modbus_strerror(errno));
 		 return false;
+<<<<<<< HEAD
+=======
+		 last_res_amount = 0;
+>>>>>>> 134f1da (upd)
 	 }
 	 return true;
 }
@@ -22,6 +26,10 @@ bool ModBusTcp<uint16_t>::ReadOutputs()
 		 syslog(LOG_INFO, "ModBusTcp read output holdings: %s",
 				 modbus_strerror(errno));
 		 return false;
+<<<<<<< HEAD
+=======
+		 last_res_amount = 0;
+>>>>>>> 134f1da (upd)
 	 }
 	 return true;
 }
@@ -35,6 +43,10 @@ bool ModBusTcp<uint8_t>::ReadInputs()
 		syslog(LOG_INFO, "ModBusTcp read input coils: %s",
 				modbus_strerror(errno));
 		return false;
+<<<<<<< HEAD
+=======
+		last_res_amount = 0;
+>>>>>>> 134f1da (upd)
 	}
 	return true;
 }
@@ -48,6 +60,10 @@ bool ModBusTcp<uint8_t>::ReadOutputs()
 		syslog(LOG_INFO, "ModBusTcp read output coils: %s",
 				modbus_strerror(errno));
 		return false;
+<<<<<<< HEAD
+=======
+		last_res_amount = 0;
+>>>>>>> 134f1da (upd)
 	}
 	return true;
 }

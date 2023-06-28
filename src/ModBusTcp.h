@@ -7,6 +7,11 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <syslog.h>
+<<<<<<< HEAD
+=======
+#include <string.h>
+#include <unistd.h>
+>>>>>>> 134f1da (upd)
 
 #define RES_SIZE 256
 
@@ -40,9 +45,26 @@ ModBusTcp<T>::ModBusTcp
 	: start(s), amount(a)
 {
 	mbcon = modbus_new_tcp(ip, port);
+<<<<<<< HEAD
 	if (modbus_connect(mbcon) < -1) {
 		fprintf(stderr, "ModBus: %s", modbus_strerror(errno));
 		exit(1);
+=======
+	int32_t mc_r;
+	if (mbcon == NULL) {
+		syslog(LOG_CRIT, "ModBus new tcp: %s\n", modbus_strerror(errno));
+		exit(EXIT_FAILURE);
+	}
+	mc_r = modbus_connect(mbcon);
+	while (mc_r < 0) {
+		syslog(LOG_CRIT, "ModBus connect: %s\n", modbus_strerror(errno));
+		if (errno == ECONNREFUSED) {
+			errno = 0;
+			mc_r = modbus_connect(mbcon);
+			sleep(5);
+		} else
+			exit(EXIT_FAILURE);
+>>>>>>> 134f1da (upd)
 	}
 	modbus_set_response_timeout(mbcon, rt_sec, rt_usec);
 }
@@ -50,8 +72,15 @@ ModBusTcp<T>::ModBusTcp
 template <class T>
 ModBusTcp<T>::~ModBusTcp()
 {
+<<<<<<< HEAD
 	modbus_close(mbcon);
 	modbus_free(mbcon);
+=======
+	if (mbcon) {
+		modbus_close(mbcon);
+		modbus_free(mbcon);
+	}
+>>>>>>> 134f1da (upd)
 }
 
 template <class T>
@@ -59,8 +88,14 @@ void ModBusTcp<T>::EraseRes()
 {
 	size_t i;
 	last_res_amount = 0;
+<<<<<<< HEAD
 	for (i = 0; i < RES_SIZE; i++)
 		res[i] = 0;
+=======
+	for (i = 0; i < last_res_amount; i++)
+		res[i] = 0;
+	last_res_amount = 0;
+>>>>>>> 134f1da (upd)
 }
 
 #endif
